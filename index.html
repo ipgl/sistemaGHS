@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Rotulagem GHS 333 - SRGHS</title>
+    <title>Sistema Rotulagem GHS - SRGHS</title>
     <style>
         * {
             margin: 0;
@@ -15,11 +15,12 @@
             font-family: Arial, Helvetica, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
         /* Header/Menu */
         header {
-            background: #b30000;
+            background: #0056b3;
             color: white;
             padding: 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -29,25 +30,14 @@
         }
 
         .top-bar {
-            background: #e91313;
+            background: #003d82;
             padding: 8px 0;
             font-size: 0.85rem;
-        }
-
-        .top-bar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .contact-info a {
-            color: white;
-            text-decoration: none;
-            margin-right: 20px;
+            display: none; /* Escondido para mobile */
         }
 
         nav {
-            background: #81947d;
+            background: #0056b3;
             padding: 15px 0;
         }
 
@@ -85,9 +75,19 @@
             opacity: 0.8;
         }
 
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #920d5f 0%, #a3196e 100%);
+            background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
             color: white;
             padding: 80px 0;
             text-align: center;
@@ -158,6 +158,7 @@
             justify-content: center;
             font-size: 2rem;
             color: white;
+            flex-shrink: 0;
         }
 
         .feature-content h3 {
@@ -196,6 +197,7 @@
             font-weight: bold;
             background-size: cover;
             background-position: center;
+            background-color: #667eea; /* Fallback color */
         }
 
         .screenshot-caption {
@@ -254,18 +256,6 @@
         .nr26-content p {
             font-size: 1.1rem;
             line-height: 1.8;
-        }
-
-        /* Store Section */
-        .store {
-            padding: 60px 0;
-            background: #f8f9fa;
-            text-align: center;
-        }
-
-        .store-content {
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         /* Contact Form Section */
@@ -347,6 +337,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
+            width: 100%;
         }
 
         .submit-button:hover {
@@ -397,23 +388,231 @@
             color: #999;
         }
 
-        /* Mobile Responsive */
+        /* ========== RESPONSIVIDADE ========== */
+
+        /* Tablets */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+            }
+            
+            .feature-box {
+                padding: 20px;
+            }
+        }
+
+        /* Tablets Pequenos e Mobile Grande */
         @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
             .hero h1 {
                 font-size: 2rem;
             }
-
-            .contact-wrapper {
-                grid-template-columns: 1fr;
+            
+            .hero p {
+                font-size: 1rem;
             }
-
-            .menu {
-                flex-direction: column;
-                gap: 10px;
+            
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
             }
-
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .features, .screenshots, .importance, .nr26, .contact {
+                padding: 40px 0;
+            }
+            
             .features-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .feature-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .feature-icon {
+                margin: 0 auto 15px;
+            }
+            
+            .screenshot-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            /* Menu Mobile */
+            .menu-toggle {
+                display: block;
+            }
+            
+            .menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #0056b3;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            .menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .menu li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .menu a {
+                display: block;
+                padding: 10px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+
+        /* Mobile Pequeno */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .feature-box {
+                padding: 15px;
+            }
+            
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .screenshot-img {
+                height: 150px;
+            }
+            
+            .warning-box {
+                padding: 20px;
+            }
+            
+            .warning-box h3 {
+                font-size: 1rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .nr26-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .nr26-content p {
+                font-size: 1rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .contact-item-icon {
+                margin: 0 auto;
+            }
+            
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 10px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Mobile Muito Pequeno */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-box {
+                padding: 12px;
+            }
+            
+            .screenshot-img {
+                height: 120px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Ajustes para telas muito grandes */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1400px;
             }
         }
     </style>
@@ -421,12 +620,12 @@
 <body>
     <!-- Header -->
     <header>
-        
         <nav>
             <div class="container">
                 <div class="nav-content">
                     <div class="logo">🏷️ SRGHS</div>
-                    <ul class="menu">
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <ul class="menu" id="mainMenu">
                         <li><a href="#inicio">Início</a></li>
                         <li><a href="#recursos">Recursos</a></li>
                         <li><a href="#sistema">Sistema</a></li>
@@ -443,7 +642,7 @@
         <div class="container">
             <h1>Sistema de Rotulagem GHS</h1>
             <p>Solução completa para rotulagem de produtos químicos conforme norma GHS e NR-26</p>
-            <a href="https://srghs.seg.br/srghs/srghs_app_secLogin/" class="cta-button" target="_blank">Solicite uma Demonstração</a>
+            <a href="https://srghs.seg.br/srghs/" class="cta-button" target="_blank">Solicite uma Demonstração</a>
         </div>
     </section>
 
@@ -509,9 +708,8 @@
             <h2 class="section-title">Conheça o Sistema</h2>
             <div class="screenshot-grid">
                 <div class="screenshot-item">
-                    <div class="screenshot-img" style="background-image: url('static/imagens/simples e pratico.png');">
-                        <!-- Caso a imagem não carregue, exibe texto alternativo 
-                        <span style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 5px;">Tela de Cadastro</span> -->
+                    <div class="screenshot-img" style="background-image: url('static/imagens/tela-cadastro.jpg');">
+                        <span style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 5px;">Tela de Cadastro</span>
                     </div>
                     <div class="screenshot-caption">Cadastro de Produtos</div>
                 </div>
@@ -574,8 +772,6 @@
             </div>
         </div>
     </section>
-
-    
 
     <!-- Contact Form Section -->
     <section id="contato" class="contact">
@@ -676,7 +872,7 @@
                         <li><a href="#inicio">Início</a></li>
                         <li><a href="#recursos">Recursos</a></li>
                         <li><a href="#sistema">Sistema</a></li>
-                        <li><a href="#loja">Loja</a></li>
+                        <li><a href="#importancia">Importância</a></li>
                         <li><a href="#contato">Contato</a></li>
                     </ul>
                 </div>
@@ -704,6 +900,21 @@
     </footer>
 
     <script>
+        // Menu Mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mainMenu = document.getElementById('mainMenu');
+        
+        menuToggle.addEventListener('click', function() {
+            mainMenu.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mainMenu.classList.remove('active');
+            });
+        });
+        
         // Formulário de contato
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
